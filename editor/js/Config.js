@@ -52,7 +52,8 @@ function Config() {
 		},
 
 		setKey: function () { // key, value, key, value ...
-
+			console.log('setKey', arguments);
+			
 			for ( var i = 0, l = arguments.length; i < l; i += 2 ) {
 
 				storage[ arguments[ i ] ] = arguments[ i + 1 ];

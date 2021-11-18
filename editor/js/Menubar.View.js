@@ -50,28 +50,29 @@ function MenubarView( editor ) {
 
 	// VR (Work in progress)
 
-	if ( 'xr' in navigator ) {
+	
+	// if ( 'xr' in navigator ) {
 
-		navigator.xr.isSessionSupported( 'immersive-vr' )
-			.then( function ( supported ) {
+	// 	navigator.xr.isSessionSupported( 'immersive-vr' )
+	// 		.then( function ( supported ) {
 
-				if ( supported ) {
+	// 			if ( supported ) {
 
-					var option = new UIRow();
-					option.setClass( 'option' );
-					option.setTextContent( 'VR' );
-					option.onClick( function () {
+	// 				var option = new UIRow();
+	// 				option.setClass( 'option' );
+	// 				option.setTextContent( 'VR' );
+	// 				option.onClick( function () {
 
-						editor.signals.toggleVR.dispatch();
+	// 					editor.signals.toggleVR.dispatch();
 
-					} );
-					options.add( option );
+	// 				} );
+	// 				options.add( option );
 
-				}
+	// 			}
 
-			} );
+	// 		} );
 
-	}
+	// }
 
 	return container;
 

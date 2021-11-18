@@ -691,7 +691,8 @@ Editor.prototype = {
 			camera: this.camera.toJSON(),
 			scene: this.scene.toJSON(),
 			scripts: this.scripts,
-			history: this.history.toJSON()
+			history: this.history.toJSON(),
+			parameters: this.config.getKey('parameters') ?? []
 
 		};
 

@@ -700,3 +700,15 @@ select {
 	}
 
 }
+
+
+
+.parameter-container {
+    position: fixed;
+	padding:12px;
+    left: 0px;
+    top: 32px;
+    height: 500px;
+    width: 250px;
+    background: rgba(255,255,255,0.1);
+}

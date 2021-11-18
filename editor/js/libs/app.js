@@ -1,3 +1,5 @@
+
+
 var APP = {
 
 	Player: function () {
@@ -9,7 +11,7 @@ var APP = {
 		var loader = new THREE.ObjectLoader();
 		var camera, scene;
 
-		var vrButton = VRButton.createButton( renderer ); // eslint-disable-line no-undef
+		//var vrButton = VRButton.createButton( renderer ); // eslint-disable-line no-undef
 
 		var events = {};
 
@@ -22,10 +24,14 @@ var APP = {
 		this.height = 500;
 
 		this.load = function ( json ) {
-
 			var project = json.project;
+			var parameters = json.parameters;
+			var parameterObject = {};
 
-			if ( project.vr !== undefined ) renderer.xr.enabled = project.vr;
+			addParameters(dom, parameters, parameterObject);
+
+						
+			//if ( project.vr !== undefined ) renderer.xr.enabled = project.vr;
 			if ( project.shadows !== undefined ) renderer.shadowMap.enabled = project.shadows;
 			if ( project.shadowType !== undefined ) renderer.shadowMap.type = project.shadowType;
 			if ( project.toneMapping !== undefined ) renderer.toneMapping = project.toneMapping;
@@ -47,7 +53,7 @@ var APP = {
 				update: []
 			};
 
-			var scriptWrapParams = 'player,renderer,scene,camera';
+			var scriptWrapParams = 'player,renderer,scene,camera,parameters';
 			var scriptWrapResultObj = {};
 
 			for ( var eventKey in events ) {
@@ -76,7 +82,7 @@ var APP = {
 
 					var script = scripts[ i ];
 
-					var functions = ( new Function( scriptWrapParams, script.source + '\nreturn ' + scriptWrapResult + ';' ).bind( object ) )( this, renderer, scene, camera );
+					var functions = ( new Function( scriptWrapParams, script.source + '\nreturn ' + scriptWrapResult + ';' ).bind( object ) )( this, renderer, scene, camera, parameterObject );
 
 					for ( var name in functions ) {
 
@@ -256,6 +262,30 @@ var APP = {
 
 		}
 
+
+		function addParameters(dom, parameters, parameterObject){
+			console.log('addParameters', dom, parameters);
+
+			let parameterContainer = document.createElement('div');
+			parameterContainer.className = 'parameter-container';
+
+			for (let parameter of parameters){
+				const label = document.createElement('label');
+				label.innerText = parameter.name;
+				const input = document.createElement('input');
+				input.value = 1;
+				input.setAttribute('type', 'number');
+				label.appendChild(input);
+				parameterObject[parameter.name] = parseInt(input.value);
+				input.addEventListener('change', (e) => {
+					parameterObject[parameter.name] = parseInt(input.value);
+				});
+
+				parameterContainer.appendChild(label);
+			}
+
+			dom.appendChild(parameterContainer);
+		}
 	}
 
 };
